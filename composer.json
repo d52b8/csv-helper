@@ -1,0 +1,9 @@
+{
+    "name": "d52b8/csv-helper",
+    "description": "CsvHelper",
+    "autoload": {
+        "psr-4": {
+            "d52b8\\": ""
+        }
+    }
+}
