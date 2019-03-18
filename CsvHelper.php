@@ -43,6 +43,7 @@ class CsvHelper
                 if ($row) {
                     if (!$header) {
                         $row = array_map('self::removeBom', $row);
+                        $row = array_map('strtolower', $row);
                         $header = $row;
                         continue;
                     }
