@@ -11,12 +11,13 @@ class CsvHelper
         return $text;
         // return iconv(mb_detect_encoding($text, mb_detect_order(), true), "utf-8", $text);
     }
-
-    private static function removeBom($text) {
-        if (substr($text, 0, 3) == pack('CCC', 0xef, 0xbb, 0xbf)) {
-            $text = substr($text, 3);
+    
+    public static function removeBOM($str)
+    {
+        if (substr($str, 0,3) == pack("CCC", 0xef, 0xbb, 0xbf)) {
+            $str = substr($str, 3);
         }
-        return $text;
+        return $str;
     }
 
     public static function test()
@@ -37,12 +38,13 @@ class CsvHelper
             $header = false;
             while (!$file->eof()) {
                 $row = $file->current();
-                $row = array_map('self::encode', $row);
-                $row = array_map('trim', $row);
+                // $row = array_map('self::encode', $row);
+                // $row = array_map('trim', $row);
                 $file->next();
                 if ($row) {
                     if (!$header) {
-                        $row = array_map('self::removeBom', $row);
+                        $row = array_map('self::removeBOM', $row);
+                        $row = array_map('trim', $row);
                         $row = array_map('strtolower', $row);
                         $header = $row;
                         continue;
