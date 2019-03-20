@@ -7,6 +7,11 @@ class CsvHelper
     {
         return (mb_detect_encoding($str, 'UTF-8', true));
     }
+
+    public static function isWindows($str)
+    {
+        return (mb_detect_encoding($str, 'Windows-1251'));
+    }
     
     public static function isBom($str)
     {
@@ -25,10 +30,10 @@ class CsvHelper
 
     private static function encode($str)
     {
-        if (self::isUtf($str)) {
-            return $str;
+        if (!self::isUtf($str) && self::isWindows($str)) {
+            return iconv('cp1251', "utf-8//IGNORE", $str);
         }
-        return iconv('cp1251', "utf-8", $str); 
+        return $str;
     }
 
     public static function test()
