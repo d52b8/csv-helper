@@ -28,9 +28,10 @@ class CsvHelper
         return $str;
     }
 
-    private static function encode($str)
+    public static function encode($str)
     {
-        if (!self::isUtf($str) && self::isWindows($str)) {
+        // if (!self::isUtf($str) && self::isWindows($str)) {
+        if (!self::isUtf($str)) {
             return iconv('cp1251', "utf-8//IGNORE", $str);
         }
         return $str;
@@ -41,7 +42,7 @@ class CsvHelper
         echo "Hello, World!";
     }
 
-    public static function read($path) 
+    public static function read($path, $encode = true) 
     {
         try {
             $file = new \SplFileObject($path);
@@ -54,7 +55,9 @@ class CsvHelper
             $header = false;
             while (!$file->eof()) {
                 $row = $file->current();
-                $row = array_map('self::encode', $row);
+                if ($encode) {
+                    $row = array_map('self::encode', $row);
+                }
                 $row = array_map('trim', $row);
                 $file->next();
                 if ($row) {
@@ -75,4 +78,3 @@ class CsvHelper
         }
     }
 }
-
