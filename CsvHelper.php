@@ -54,12 +54,11 @@ class CsvHelper
             $file->setCsvControl(';',"\"");
             $header = false;
             while (!$file->eof()) {
-                $row = $file->current();
+                $row = $file->fgetcsv();
                 if ($encode) {
                     $row = array_map('self::encode', $row);
                 }
                 $row = array_map('trim', $row);
-                $file->next();
                 if ($row) {
                     if (!$header) {
                         $row = array_map('self::removeBOM', $row);
