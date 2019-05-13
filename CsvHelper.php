@@ -55,11 +55,11 @@ class CsvHelper
             $header = false;
             while (!$file->eof()) {
                 $row = $file->fgetcsv();
-                if ($encode) {
-                    $row = array_map('self::encode', $row);
-                }
-                $row = array_map('trim', $row);
                 if ($row) {
+                    if ($encode) {
+                        $row = array_map('self::encode', $row);
+                    }
+                    $row = array_map('trim', $row);
                     if (!$header) {
                         $row = array_map('self::removeBOM', $row);
                         $row = array_map('strtolower', $row);
