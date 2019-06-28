@@ -48,8 +48,7 @@ class CsvHelper
             $file = new \SplFileObject($path);
             $file->setFlags(
                 \SplFileObject::READ_CSV |
-                \SplFileObject::SKIP_EMPTY |
-                \SplFileObject::READ_AHEAD
+                \SplFileObject::SKIP_EMPTY
             );
             $file->setCsvControl(';',"\"");
             $header = false;
