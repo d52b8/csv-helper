@@ -22,6 +22,6 @@ use d52b8\CsvHelper;
 
 $csv = CsvHelper::read('/path/to/file.csv');
 foreach ($csv as $row) {
-    print_r($csv);
+    print_r($row);
 }
 ```
